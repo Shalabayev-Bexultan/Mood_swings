@@ -23,7 +23,24 @@ struct JournalEntryRowView: View {
             .padding(.bottom, 1)
             HStack{
                 Text(rowJournalEntry.date, style: .date)
-                Text(String(Int(rowJournalEntry.rating)))
+                ZStack {
+                                    Rectangle()
+                                        .fill(
+                                            LinearGradient(
+                                                gradient: Gradient(
+                                                    colors: [
+                                                        Color(hue: 0, saturation: 1, brightness: 1 - (rowJournalEntry.rating / 100)), // Red
+                                                        Color(hue: 0.333, saturation: 1, brightness: 0.5 + (rowJournalEntry.rating / 200)) // Even brighter green
+                                                    ]
+                                                ),
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+                                    Text(String(Int(rowJournalEntry.rating)))
+                                        .foregroundColor(.white)
+                                }
+                .ignoresSafeArea()
             }
             .font(.caption)
         }

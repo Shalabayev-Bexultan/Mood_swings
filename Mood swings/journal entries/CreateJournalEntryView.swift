@@ -21,7 +21,24 @@ struct CreateJournalEntryView: View {
             Form{
                 TextField("Title", text: $title)
                 DatePicker("Journal Date", selection: $date, displayedComponents: .date)
-                Text(String(Int(rating)))
+                ZStack {
+                                    Rectangle()
+                                        .fill(
+                                            LinearGradient(
+                                                gradient: Gradient(
+                                                    colors: [
+                                                        Color(hue: 0, saturation: 1, brightness: 1 - (rating / 100)), // Red
+                                                        Color(hue: 0.333, saturation: 1, brightness: 0.5 + (rating / 200)) // Even brighter green
+                                                    ]
+                                                ),
+                                                startPoint: .top,
+                                                endPoint: .bottom
+                                            )
+                                        )
+                                    Text(String(Int(rating)))
+                                        .foregroundColor(.white)
+                                }
+                .ignoresSafeArea()
                 Slider(value: $rating, in: 1...100)
                 TextEditor(text: $text)
             }
